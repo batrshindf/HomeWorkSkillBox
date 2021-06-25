@@ -78,6 +78,25 @@ namespace HomeWork4._1
         }
 
         /// <summary>
+        /// Подсчет и вывод на экран консоли кол-во месяцев с положительной прибылью
+        /// </summary>
+        /// <param name="profit">Прибыль</param>
+        static void PositiveProfit(int[] profit)
+        {
+            byte count = 0;
+
+            for (int i = 0; i < profit.Length; i++)
+            {
+                if (profit[i] > 0)
+                {
+                    count++;
+                }
+            }
+
+            Console.WriteLine($"\nКоличество месяцев с положительной прибылью равно {count}.");
+        }
+
+        /// <summary>
         /// Основной метод
         /// </summary>
         static void Main(string[] args)
@@ -103,6 +122,7 @@ namespace HomeWork4._1
             
             OutputOfTheFinancialTable(income, expenses, profit);
             BadMonths(profit);
+            PositiveProfit(profit);
 
             Console.ReadKey();
         }
