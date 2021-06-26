@@ -2,7 +2,7 @@
 
 namespace HomeWork4._1
 {
-    internal class Program
+    class Program
     {
         /// <summary>
         ///     Заполение массива
