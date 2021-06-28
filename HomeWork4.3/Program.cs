@@ -17,19 +17,38 @@ namespace HomeWork4._3
             
             Console.Write("Введите высоту матрицы: ");
             int row = int.Parse(Console.ReadLine());
-            CheckInput(row);
+            row = CheckInput(row);
 
             Console.Write("\nВведите ширину матрицы: ");
             int col = int.Parse(Console.ReadLine());
-            CheckInput(col);
-
-
-
+            col = CheckInput(col);
+            
             int[,] matrix = new int[row, col];
 
             FillMatrix(row, col, matrix);
+            PrintMatrix(row, col, matrix);
 
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Вывод матрицы
+        /// </summary>
+        /// <param name="row">Количество строк матрицы</param>
+        /// <param name="col">Количество колонок матрицы</param>
+        /// <param name="matrix">Выводимая матрица</param>
+        private static void PrintMatrix(int row, int col, int[,] matrix)
+        {
+            Console.WriteLine();
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    Console.Write($"{matrix[i, j],3} ");
+                }
+
+                Console.WriteLine();
+            }
         }
 
         /// <summary>
