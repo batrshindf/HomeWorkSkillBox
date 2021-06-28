@@ -1,20 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork4._3
 {
-    class Program
+    internal class Program
     {
         /// <summary>
-        /// Основной метод
+        ///     Основной метод
         /// </summary>
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            
             Console.Write("Введите высоту матрицы: ");
             int row = int.Parse(Console.ReadLine());
             row = CheckInput(row);
@@ -22,17 +16,40 @@ namespace HomeWork4._3
             Console.Write("\nВведите ширину матрицы: ");
             int col = int.Parse(Console.ReadLine());
             col = CheckInput(col);
-            
+
             int[,] matrix = new int[row, col];
 
             FillMatrix(row, col, matrix);
+            PrintMatrix(row, col, matrix);
+
+            MultiplyingTheMatrixByNumber(row, col, matrix);
             PrintMatrix(row, col, matrix);
 
             Console.ReadKey();
         }
 
         /// <summary>
-        /// Вывод матрицы
+        /// Умножение матрицы на число
+        /// </summary>
+        /// <param name="row">Количество строк матрицы</param>
+        /// <param name="col">Количество колонок матрицы</param>
+        /// <param name="matrix">Матрица на которое нужно умножить число</param>
+        private static void MultiplyingTheMatrixByNumber(int row, int col, int[,] matrix)
+        {
+            Console.Write("\nВведите число на которое нужно умножить матрицу: ");
+            int multipliByNumber = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    matrix[i, j] *= multipliByNumber;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Вывод матрицы
         /// </summary>
         /// <param name="row">Количество строк матрицы</param>
         /// <param name="col">Количество колонок матрицы</param>
@@ -52,7 +69,7 @@ namespace HomeWork4._3
         }
 
         /// <summary>
-        /// Проверка ввода на отрицательные и нулевые данные для размерности массива
+        ///     Проверка ввода на отрицательные и нулевые данные для размерности массива
         /// </summary>
         /// <param name="number">Воод параметра количесва строк или ширрины</param>
         /// <returns>Правильная мерность массива</returns>
@@ -68,7 +85,7 @@ namespace HomeWork4._3
         }
 
         /// <summary>
-        /// Заполнеине матрицы
+        ///     Заполнеине матрицы
         /// </summary>
         /// <param name="row">Количество строк матрицы</param>
         /// <param name="col">Количество колонок матрицы</param>
