@@ -9,6 +9,8 @@ namespace HomeWork4._3
         /// </summary>
         private static void Main(string[] args)
         {
+            Random random = new Random();
+
             Console.Write("Введите высоту матрицы: ");
             int row = int.Parse(Console.ReadLine());
             row = CheckInput(row);
@@ -19,17 +21,67 @@ namespace HomeWork4._3
 
             int[,] matrix = new int[row, col];
 
-            FillMatrix(row, col, matrix);
+            //#region Умножение матрицы на число
+
+            FillMatrix(row, col, matrix, random);
+            Console.WriteLine("Первая матрица");
             PrintMatrix(row, col, matrix);
 
-            MultiplyingTheMatrixByNumber(row, col, matrix);
-            PrintMatrix(row, col, matrix);
+            //MultiplyingTheMatrixByNumber(row, col, matrix);
+            //PrintMatrix(row, col, matrix);
+
+            //#endregion
+
+            int[,] matrix2 = new int[row, col];
+
+
+            //MatrixAddition(row, col, matrix, matrix2, random);
+            MatrixDifference(row, col, matrix, matrix2, random);
+
+            Console.WriteLine("Результат");
+            PrintMatrix(row, col, matrix2);
 
             Console.ReadKey();
         }
 
+        private static void MatrixDifference(int row, int col, int[,] matrix, int[,] matrix2, Random random)
+        {
+            FillMatrix(row, col, matrix2, random);
+            PrintMatrix(row, col, matrix2);
+
+            Console.WriteLine();
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    matrix2[i, j] = matrix[i, j] - matrix2[i, j];
+                }
+            }
+        }
+
         /// <summary>
-        /// Умножение матрицы на число
+        ///     Сложение матриц
+        /// </summary>
+        /// <param name="row">Количесвто строк матриц</param>
+        /// <param name="col">Количество колонок матриц</param>
+        /// <param name="matrix">Основная матрица (Первая матрица)</param>
+        /// <param name="matrix2">Вторая матрица</param>
+        private static void MatrixAddition(int row, int col, int[,] matrix, int[,] matrix2, Random random)
+        {
+            FillMatrix(row, col, matrix2, random);
+            //PrintMatrix(row, col, matrix2);
+
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    matrix2[i, j] += matrix[i, j];
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Умножение матрицы на число
         /// </summary>
         /// <param name="row">Количество строк матрицы</param>
         /// <param name="col">Количество колонок матрицы</param>
@@ -90,10 +142,8 @@ namespace HomeWork4._3
         /// <param name="row">Количество строк матрицы</param>
         /// <param name="col">Количество колонок матрицы</param>
         /// <param name="matrix">Матрица, ввиде двумерного массива</param>
-        private static void FillMatrix(int row, int col, int[,] matrix)
+        private static void FillMatrix(int row, int col, int[,] matrix, Random random)
         {
-            Random random = new Random();
-
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
