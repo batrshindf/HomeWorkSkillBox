@@ -33,17 +33,67 @@ namespace HomeWork4._3
             //#endregion
 
             int[,] matrix2 = new int[row, col];
+            FillMatrix(row, col, matrix2, random);
 
+            MatrixMultiplication(row, col, matrix2, matrix);
 
             //MatrixAddition(row, col, matrix, matrix2, random);
-            MatrixDifference(row, col, matrix, matrix2, random);
+            //MatrixDifference(row, col, matrix, matrix2, random);
 
-            Console.WriteLine("Результат");
-            PrintMatrix(row, col, matrix2);
+            //Console.WriteLine("Результат");
+            //PrintMatrix(row, col, matrix2);
 
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Перемножение матриц
+        /// </summary>
+        /// <param name="row">Ширина</param>
+        /// <param name="col">Высота</param>
+        /// <param name="matrix">Матрица, которую умножают</param>
+        /// <param name="matrix2">Матрица, на которую умножают</param>
+        private static void MatrixMultiplication(int row, int col, int[,] matrix, int[,] matrix2)
+        {
+            Console.Clear();
+
+            Console.WriteLine("\n\nВторая матрица:");
+            PrintMatrix(row, col, matrix2);
+            
+            if (row != col)
+            {
+                Console.WriteLine("Перемножение матриц невозможно. Несоблюдены правила перемножения " +
+                                  "матриц (кол-во колнок матрицы А неравно кол-ву строк матрицы В).");
+            }
+
+            var matrix3 = new int[row, col];
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix2.GetLength(1); j++)
+                {
+                    matrix3[i, j] = 0;
+
+                    for (int k = 0; k < matrix.GetLength(1); k++)
+                    {
+                        matrix3[i, j] += matrix[i, k] * matrix2[k, j];
+                    }
+                }
+            }
+
+            Console.WriteLine("\n\nРезультат:");
+            PrintMatrix(row, col, matrix3);
+        }
+
+
+        /// <summary>
+        /// Выичтание матриц
+        /// </summary>
+        /// <param name="row">Выоста матриц</param>
+        /// <param name="col">Ширина матриц</param>
+        /// <param name="matrix">Основная матрица (Первая матрица, из которой вычитают)</param>
+        /// <param name="matrix2">Вторая матрица (Которую вычитают)</param>
+        /// <param name="random">Псевдо-случайное число</param>
         private static void MatrixDifference(int row, int col, int[,] matrix, int[,] matrix2, Random random)
         {
             FillMatrix(row, col, matrix2, random);

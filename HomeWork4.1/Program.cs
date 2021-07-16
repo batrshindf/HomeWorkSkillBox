@@ -118,7 +118,7 @@ namespace HomeWork4._1
 
             //Находим прибыль
             for (int i = 0; i < profit.Length; i++) profit[i] = income[i] - expenses[i];
-             
+
             OutputOfTheFinancialTable(income, expenses, profit);
             BadMonths(profit);
             PositiveProfit(profit);
