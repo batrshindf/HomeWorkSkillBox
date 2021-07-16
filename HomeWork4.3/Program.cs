@@ -11,37 +11,32 @@ namespace HomeWork4._3
         {
             Random random = new Random();
 
-            Console.Write("Введите высоту матрицы: ");
+            Console.Write("Введите высоту первой матрицы: ");
             int row = int.Parse(Console.ReadLine());
             row = CheckInput(row);
 
-            Console.Write("\nВведите ширину матрицы: ");
+            Console.Write("\nВведите ширину первой матрицы: ");
             int col = int.Parse(Console.ReadLine());
             col = CheckInput(col);
 
+            Console.Write("Введите высоту второй матрицы: ");
+            int row2 = int.Parse(Console.ReadLine());
+            row2 = CheckInput(row2);
+
+            Console.Write("\nВведите ширину второй матрицы: ");
+            int col2 = int.Parse(Console.ReadLine());
+            col2 = CheckInput(col2);
+
             int[,] matrix = new int[row, col];
-
-            //#region Умножение матрицы на число
-
             FillMatrix(row, col, matrix, random);
-            Console.WriteLine("Первая матрица");
-            PrintMatrix(row, col, matrix);
-
-            //MultiplyingTheMatrixByNumber(row, col, matrix);
-            //PrintMatrix(row, col, matrix);
-
-            //#endregion
 
             int[,] matrix2 = new int[row, col];
             FillMatrix(row, col, matrix2, random);
 
-            MatrixMultiplication(row, col, matrix2, matrix);
-
-            //MatrixAddition(row, col, matrix, matrix2, random);
-            //MatrixDifference(row, col, matrix, matrix2, random);
-
-            //Console.WriteLine("Результат");
-            //PrintMatrix(row, col, matrix2);
+            MultiplyingTheMatrixByNumber(row, col, matrix);
+            MatrixAddition(row, col, row2, col2, matrix, matrix2, random);
+            MatrixDifference(row, col, row2, col2, matrix, matrix2, random);
+            MatrixMultiplication(row, col, row2, col2, matrix2, matrix);
 
             Console.ReadKey();
         }
@@ -53,36 +48,44 @@ namespace HomeWork4._3
         /// <param name="col">Высота</param>
         /// <param name="matrix">Матрица, которую умножают</param>
         /// <param name="matrix2">Матрица, на которую умножают</param>
-        private static void MatrixMultiplication(int row, int col, int[,] matrix, int[,] matrix2)
+        private static void MatrixMultiplication(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2)
         {
             Console.Clear();
 
+            Console.WriteLine("Перемножение матриц!");
+
+            Console.WriteLine("\n\nПервая матрица");
+            PrintMatrix(row, col, matrix);
+
             Console.WriteLine("\n\nВторая матрица:");
-            PrintMatrix(row, col, matrix2);
-            
-            if (row != col)
+            PrintMatrix(row2, col2, matrix2);
+
+            if (matrix.GetLength(0) != matrix2.GetLength(1))
             {
-                Console.WriteLine("Перемножение матриц невозможно. Несоблюдены правила перемножения " +
+                Console.WriteLine("\n\n\nПеремножение матриц невозможно. Несоблюдены правила перемножения " +
                                   "матриц (кол-во колнок матрицы А неравно кол-ву строк матрицы В).");
+                Console.ReadKey();
             }
-
-            var matrix3 = new int[row, col];
-
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            else
             {
-                for (int j = 0; j < matrix2.GetLength(1); j++)
-                {
-                    matrix3[i, j] = 0;
+                var matrix3 = new int[matrix.GetLength(0), matrix2.GetLength(1)];
 
-                    for (int k = 0; k < matrix.GetLength(1); k++)
+                for (int i = 0; i < matrix.GetLength(0); i++)
+                {
+                    for (int j = 0; j < matrix2.GetLength(1); j++)
                     {
-                        matrix3[i, j] += matrix[i, k] * matrix2[k, j];
+                        matrix3[i, j] = 0;
+
+                        for (int k = 0; k < matrix.GetLength(1); k++)
+                        {
+                            matrix3[i, j] += matrix[i, k] * matrix2[k, j];
+                        }
                     }
                 }
+                Console.WriteLine("\n\nРезультат:");
+                PrintMatrix(row, col, matrix3);
+                Console.ReadKey();
             }
-
-            Console.WriteLine("\n\nРезультат:");
-            PrintMatrix(row, col, matrix3);
         }
 
 
@@ -94,18 +97,38 @@ namespace HomeWork4._3
         /// <param name="matrix">Основная матрица (Первая матрица, из которой вычитают)</param>
         /// <param name="matrix2">Вторая матрица (Которую вычитают)</param>
         /// <param name="random">Псевдо-случайное число</param>
-        private static void MatrixDifference(int row, int col, int[,] matrix, int[,] matrix2, Random random)
+        private static void MatrixDifference(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2, Random random)
         {
-            FillMatrix(row, col, matrix2, random);
-            PrintMatrix(row, col, matrix2);
+            Console.Clear();
 
-            Console.WriteLine();
-            for (int i = 0; i < row; i++)
+            Console.WriteLine("Вычитание матриц!");
+
+            Console.WriteLine("\n\nПервая матрица");
+            PrintMatrix(row, col, matrix);
+
+            Console.WriteLine("\n\nВторая матрица:");
+            PrintMatrix(row2, col2, matrix2);
+
+            if (row != row2 || col != col2)
             {
-                for (int j = 0; j < col; j++)
+                Console.WriteLine("\n\n\nВычитание матриц невозможно. Несоблюдены правила вычитания " +
+                                  "матриц (Разный размер матриц).");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine();
+                for (int i = 0; i < row; i++)
                 {
-                    matrix2[i, j] = matrix[i, j] - matrix2[i, j];
+                    for (int j = 0; j < col; j++)
+                    {
+                        matrix2[i, j] = matrix[i, j] - matrix2[i, j];
+                    }
                 }
+
+                Console.WriteLine("\n\nРезультат:");
+                PrintMatrix(row, col, matrix2);
+                Console.ReadKey();
             }
         }
 
@@ -116,17 +139,37 @@ namespace HomeWork4._3
         /// <param name="col">Количество колонок матриц</param>
         /// <param name="matrix">Основная матрица (Первая матрица)</param>
         /// <param name="matrix2">Вторая матрица</param>
-        private static void MatrixAddition(int row, int col, int[,] matrix, int[,] matrix2, Random random)
+        private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2, Random random)
         {
-            FillMatrix(row, col, matrix2, random);
-            //PrintMatrix(row, col, matrix2);
+            Console.Clear();
 
-            for (int i = 0; i < row; i++)
+            Console.WriteLine("Сложение матриц!");
+
+            Console.WriteLine("\n\nПервая матрица");
+            PrintMatrix(row, col, matrix);
+
+            Console.WriteLine("\n\nВторая матрица:");
+            PrintMatrix(row2, col2, matrix2);
+
+            if (row != row2 || col != col2)
             {
-                for (int j = 0; j < col; j++)
+                Console.WriteLine("\n\n\nСложение матриц невозможно. Несоблюдены правила сложения " +
+                                  "матриц (Разный размер матриц).");
+                Console.ReadKey();
+            }
+            else
+            {
+                for (int i = 0; i < row; i++)
                 {
-                    matrix2[i, j] += matrix[i, j];
+                    for (int j = 0; j < col; j++)
+                    {
+                        matrix2[i, j] += matrix[i, j];
+                    }
                 }
+
+                Console.WriteLine("\n\nРезультат:");
+                PrintMatrix(row, col, matrix2);
+                Console.ReadKey();
             }
         }
 
@@ -138,8 +181,13 @@ namespace HomeWork4._3
         /// <param name="matrix">Матрица на которое нужно умножить число</param>
         private static void MultiplyingTheMatrixByNumber(int row, int col, int[,] matrix)
         {
+            Console.Clear();
+            Console.WriteLine("\n\n Умножение матрицы на число!");
             Console.Write("\nВведите число на которое нужно умножить матрицу: ");
-            int multipliByNumber = int.Parse(Console.ReadLine());
+            var multipliByNumber = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Первая матрица");
+            PrintMatrix(row, col, matrix);
 
             for (int i = 0; i < row; i++)
             {
@@ -148,6 +196,10 @@ namespace HomeWork4._3
                     matrix[i, j] *= multipliByNumber;
                 }
             }
+
+            Console.WriteLine($"\n\nРезультат умножения исходной матрицы на число {multipliByNumber}: ");
+            PrintMatrix(row, col, matrix);
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -163,7 +215,7 @@ namespace HomeWork4._3
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Console.Write($"{matrix[i, j],3} ");
+                    Console.Write($"{matrix[i, j], 3} ");
                 }
 
                 Console.WriteLine();
