@@ -19,7 +19,7 @@ namespace HomeWork4._3
             int col = int.Parse(Console.ReadLine());
             col = CheckInput(col);
 
-            Console.Write("Введите высоту второй матрицы: ");
+            Console.Write("\nВведите высоту второй матрицы: ");
             int row2 = int.Parse(Console.ReadLine());
             row2 = CheckInput(row2);
 
@@ -30,13 +30,13 @@ namespace HomeWork4._3
             int[,] matrix = new int[row, col];
             FillMatrix(row, col, matrix, random);
 
-            int[,] matrix2 = new int[row, col];
-            FillMatrix(row, col, matrix2, random);
+            int[,] matrix2 = new int[row2, col2];
+            FillMatrix(row2, col2, matrix2, random);
 
             MultiplyingTheMatrixByNumber(row, col, matrix);
             MatrixAddition(row, col, row2, col2, matrix, matrix2, random);
             MatrixDifference(row, col, row2, col2, matrix, matrix2, random);
-            MatrixMultiplication(row, col, row2, col2, matrix2, matrix);
+            MatrixMultiplication(row, col, row2, col2, matrix, matrix2);
 
             Console.ReadKey();
         }
@@ -44,8 +44,10 @@ namespace HomeWork4._3
         /// <summary>
         /// Перемножение матриц
         /// </summary>
-        /// <param name="row">Ширина</param>
-        /// <param name="col">Высота</param>
+        /// <param name="row">Ширина первой матрицы</param>
+        /// <param name="col">Высота первой матрицы</param>
+        /// <param name="row2">Ширина второй матрицы</param>
+        /// <param name="col2">Высота второй матрицы</param>
         /// <param name="matrix">Матрица, которую умножают</param>
         /// <param name="matrix2">Матрица, на которую умножают</param>
         private static void MatrixMultiplication(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2)
@@ -83,7 +85,7 @@ namespace HomeWork4._3
                     }
                 }
                 Console.WriteLine("\n\nРезультат:");
-                PrintMatrix(row, col, matrix3);
+                PrintMatrix(matrix.GetLength(0), matrix2.GetLength(1), matrix3);
                 Console.ReadKey();
             }
         }
@@ -94,6 +96,8 @@ namespace HomeWork4._3
         /// </summary>
         /// <param name="row">Выоста матриц</param>
         /// <param name="col">Ширина матриц</param>
+        /// <param name="row2">Ширина второй матрицы</param>
+        /// <param name="col2">Высота второй матрицы</param>
         /// <param name="matrix">Основная матрица (Первая матрица, из которой вычитают)</param>
         /// <param name="matrix2">Вторая матрица (Которую вычитают)</param>
         /// <param name="random">Псевдо-случайное число</param>
@@ -137,6 +141,8 @@ namespace HomeWork4._3
         /// </summary>
         /// <param name="row">Количесвто строк матриц</param>
         /// <param name="col">Количество колонок матриц</param>
+        /// <param name="row2">Ширина второй матрицы</param>
+        /// <param name="col2">Высота второй матрицы</param>
         /// <param name="matrix">Основная матрица (Первая матрица)</param>
         /// <param name="matrix2">Вторая матрица</param>
         private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2, Random random)
@@ -150,7 +156,7 @@ namespace HomeWork4._3
 
             Console.WriteLine("\n\nВторая матрица:");
             PrintMatrix(row2, col2, matrix2);
-
+           
             if (row != row2 || col != col2)
             {
                 Console.WriteLine("\n\n\nСложение матриц невозможно. Несоблюдены правила сложения " +
@@ -215,7 +221,7 @@ namespace HomeWork4._3
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Console.Write($"{matrix[i, j], 3} ");
+                    Console.Write($"{matrix[i, j], 5} ");
                 }
 
                 Console.WriteLine();
