@@ -68,7 +68,7 @@ namespace HomeWork5._1
             {
                 for (int j = 0; j < matrix.GetLength(1); j++)
                 {
-                    Console.WriteLine($"Введите данные матрицы с координатами [{i+1},{j+1}]: ");
+                    Console.WriteLine($"\nВведите данные матрицы с координатами [{i+1},{j+1}]: ");
                     matrix[i, j] = int.Parse(Console.ReadLine());
                 }
             }
@@ -96,24 +96,32 @@ namespace HomeWork5._1
         {
             Random random = new Random();
 
+            Console.WriteLine("Задайте параметры для матрицы А: ");
             int[,] matrixA = GetNewMatrix();
+            Console.WriteLine("\nЗадайте параметры для матрицы В: ");
             int[,] matrixB = GetNewMatrix();
 
-            //Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
-            //int q = int.Parse(Console.ReadLine());
-            //if (q == 1)
-            //{
-            FillMatrix(matrixA);
-            FillMatrix(matrixB);
-            //}
-            //else
-            //{
-            //FillMatrix(matrixA, random);
-            //FillMatrix(matrixB, random);
-            //}
+            Console.Clear();
+            Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
+            int q = int.Parse(Console.ReadLine());
+            if (q == 1)
+            {
+                
+                Console.WriteLine("Введите данные матрицы А (Построчно): "); 
+                FillMatrix(matrixA);
+                Console.WriteLine("\nВведите данные матрицы B (Построчно): ");
+                FillMatrix(matrixB);
+            }
+            else
+            {
+                FillMatrix(matrixA, random);
+                FillMatrix(matrixB, random);
+            }
 
+            Console.Clear();
+            Console.WriteLine("Исходная матрица А:");
             PrintMatrix(matrixA);
-            Console.WriteLine();
+            Console.WriteLine("Исходная матрица В: ");
             PrintMatrix(matrixB);
 
             Console.ReadKey();
