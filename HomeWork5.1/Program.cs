@@ -92,6 +92,48 @@ namespace HomeWork5._1
             }
         }
 
+        /// <summary>
+        /// Вывод исходных мавтриц на экран консоли
+        /// </summary>
+        /// <param name="matrixA">Исхожная матрица А (Первая матрица)</param>
+        /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
+        private static void SourceMatrices(int[,] matrixA, int[,] matrixB)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Исходная матрица А:");
+            PrintMatrix(matrixA);
+            Console.WriteLine("\nИсходная матрица В: ");
+            PrintMatrix(matrixB);
+        }
+
+
+        private static void MultiplyingTheMatrixByNumber(int[,] matrix)
+        {
+            Console.Clear();
+            Console.WriteLine("\n\n Умножение матрицы на число!");
+            Console.Write("\nВведите число на которое нужно умножить матрицу: ");
+            
+            var multipliByNumber = int.Parse(Console.ReadLine());
+            var matrixC = matrix;
+
+            Console.WriteLine("\nИсходная матрица:");
+            PrintMatrix(matrix);
+
+            for (int i = 0; i < matrixC.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrixC.GetLength(1); j++)
+                {
+                    matrixC[i, j] *= multipliByNumber;
+                }
+            }
+
+            Console.WriteLine($"\n\nРезультат умножения исходной матрицы на число {multipliByNumber}: ");
+            PrintMatrix(matrix);
+
+            Console.ReadKey();
+        }
+
         static void Main(string[] args)
         {
             Random random = new Random();
@@ -117,14 +159,13 @@ namespace HomeWork5._1
                 FillMatrix(matrixA, random);
                 FillMatrix(matrixB, random);
             }
-
-            Console.Clear();
-            Console.WriteLine("Исходная матрица А:");
-            PrintMatrix(matrixA);
-            Console.WriteLine("Исходная матрица В: ");
-            PrintMatrix(matrixB);
-
+            
+            MultiplyingTheMatrixByNumber(matrixA);
+            MultiplyingTheMatrixByNumber(matrixB);
+            
             Console.ReadKey();
         }
+
+        
     }
 }
