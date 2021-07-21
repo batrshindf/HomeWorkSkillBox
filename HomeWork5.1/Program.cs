@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork5._1
 {
-    class Program
+    internal class Program
     {
         /// <summary>
-        /// Создание новой матрицы с параметрами (ширина и высота мтрицы), вводимые пользователем 
+        ///     Создание новой матрицы с параметрами (ширина и высота мтрицы), вводимые пользователем
         /// </summary>
         /// <returns>Новая матрица</returns>
         private static int[,] GetNewMatrix()
@@ -27,7 +22,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Проверка Ширины или высоты матрицы (не может быть <= 0)
+        ///     Проверка Ширины или высоты матрицы (не может быть <= 0)
         /// </summary>
         /// <param name="number">Ширина или высота матрицы</param>
         /// <returns>Высоту или ширину матрицы > 0</returns>
@@ -43,7 +38,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Получения количества строк в матрице (Высота матрицы)
+        ///     Получения количества строк в матрице (Высота матрицы)
         /// </summary>
         /// <param name="matrix">Исходная матрица</param>
         /// <returns>Количество строк в матрице (Выоста матрицы)</returns>
@@ -53,7 +48,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Получения количества колонок в матрице (Ширина матрицы)
+        ///     Получения количества колонок в матрице (Ширина матрицы)
         /// </summary>
         /// <param name="matrix">Исходная матрица</param>
         /// <returns>Количество колонок в матрице (Ширина матрицы)</returns>
@@ -63,7 +58,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Автоматическое заполнение матрицы
+        ///     Автоматическое заполнение матрицы
         /// </summary>
         /// <param name="matrix">Заполняемая матрица</param>
         /// <param name="random">Псевдо-случайное число</param>
@@ -79,7 +74,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Ручное заполнение матрицы
+        ///     Ручное заполнение матрицы
         /// </summary>
         /// <param name="matrix">Заполняемая матрица</param>
         private static void FillMatrix(int[,] matrix)
@@ -88,14 +83,14 @@ namespace HomeWork5._1
             {
                 for (int j = 0; j < GetMatrixCol(matrix); j++)
                 {
-                    Console.WriteLine($"\nВведите данные матрицы с координатами [{i+1},{j+1}]: ");
+                    Console.WriteLine($"\nВведите данные матрицы с координатами [{i + 1},{j + 1}]: ");
                     matrix[i, j] = int.Parse(Console.ReadLine());
                 }
             }
         }
 
         /// <summary>
-        /// Вывод матрицы
+        ///     Вывод матрицы
         /// </summary>
         /// <param name="matrix">Выводимая матрица</param>
         private static void PrintMatrix(int[,] matrix)
@@ -113,7 +108,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Вывод исходных мавтриц на экран консоли
+        ///     Вывод исходных мавтриц на экран консоли
         /// </summary>
         /// <param name="matrixA">Исхожная матрица А (Первая матрица)</param>
         /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
@@ -125,10 +120,47 @@ namespace HomeWork5._1
             PrintMatrix(matrixB);
         }
 
+
+        private static void Main(string[] args)
+        {
+            Random random = new Random();
+
+            Console.WriteLine("Задайте параметры для матрицы А: ");
+            int[,] matrixA = GetNewMatrix();
+            Console.WriteLine("\nЗадайте параметры для матрицы В: ");
+            int[,] matrixB = GetNewMatrix();
+
+            Console.Clear();
+            Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
+            int q = int.Parse(Console.ReadLine());
+            if (q == 1)
+            {
+                Console.WriteLine("Введите данные матрицы А (Построчно): ");
+                FillMatrix(matrixA);
+                Console.WriteLine("\nВведите данные матрицы B (Построчно): ");
+                FillMatrix(matrixB);
+            }
+            else
+            {
+                FillMatrix(matrixA, random);
+                FillMatrix(matrixB, random);
+            }
+
+            MultiplyingTheMatrixByNumber(matrixA);
+            MultiplyingTheMatrixByNumber(matrixB);
+            MatrixAddition(matrixA, matrixB);
+            MatrixDifference(matrixA, matrixB);
+            MatrixDifference(matrixB, matrixA);
+            MatrixMultiplication(matrixA, matrixB);
+            MatrixMultiplication(matrixB, matrixA);
+
+            Console.ReadKey();
+        }
+
         #region Методы вычесления матриц
 
         /// <summary>
-        /// Умножение матрицы на число
+        ///     Умножение матрицы на число
         /// </summary>
         /// <param name="matrix">Исходная матрица</param>
         private static void MultiplyingTheMatrixByNumber(int[,] matrix)
@@ -158,7 +190,7 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        /// Сложение матриц
+        ///     Сложение матриц
         /// </summary>
         /// <param name="matrixA">Исходная матрица А (Первая матрица)</param>
         /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
@@ -185,14 +217,15 @@ namespace HomeWork5._1
             }
             else
             {
-                Console.WriteLine("\nСложение матриц невозможно. Несоблюдены правила сложения матриц (Разный размер матриц).");
+                Console.WriteLine(
+                    "\nСложение матриц невозможно. Несоблюдены правила сложения матриц (Разный размер матриц).");
             }
 
             Console.ReadKey();
         }
 
         /// <summary>
-        /// Вычитание матриц
+        ///     Вычитание матриц
         /// </summary>
         /// <param name="matrixA">Исходная матрица А (Первая матрица)</param>
         /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
@@ -219,14 +252,15 @@ namespace HomeWork5._1
             }
             else
             {
-                Console.WriteLine("\nВычитание матриц невозможно. Несоблюдены правила сложения матриц (Разный размер матриц).");
+                Console.WriteLine(
+                    "\nВычитание матриц невозможно. Несоблюдены правила сложения матриц (Разный размер матриц).");
             }
 
             Console.ReadKey();
         }
 
         /// <summary>
-        /// Умножение матриц
+        ///     Умножение матриц
         /// </summary>
         /// <param name="matrixA">Исходная первая матрица (матрица которую умножают)</param>
         /// <param name="matrixB">Исходная вторая матрица (матрица на которую умножают)</param>
@@ -262,48 +296,10 @@ namespace HomeWork5._1
                 Console.WriteLine("\n\n\nПеремножение матриц невозможно. Несоблюдены правила перемножения матриц " +
                                   "(кол-во колнок матрицы А неравно кол-ву строк матрицы В).");
             }
+
             Console.ReadKey();
         }
 
         #endregion
-
-
-        static void Main(string[] args)
-        {
-            Random random = new Random();
-
-            Console.WriteLine("Задайте параметры для матрицы А: ");
-            int[,] matrixA = GetNewMatrix();
-            Console.WriteLine("\nЗадайте параметры для матрицы В: ");
-            int[,] matrixB = GetNewMatrix();
-
-            Console.Clear();
-            Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
-            int q = int.Parse(Console.ReadLine());
-            if (q == 1)
-            {
-                Console.WriteLine("Введите данные матрицы А (Построчно): "); 
-                FillMatrix(matrixA);
-                Console.WriteLine("\nВведите данные матрицы B (Построчно): ");
-                FillMatrix(matrixB);
-            }
-            else
-            {
-                FillMatrix(matrixA, random);
-                FillMatrix(matrixB, random);
-            }
-
-            MultiplyingTheMatrixByNumber(matrixA);
-            MultiplyingTheMatrixByNumber(matrixB);
-            MatrixAddition(matrixA, matrixB);
-            MatrixDifference(matrixA, matrixB);
-            MatrixDifference(matrixB, matrixA);
-            MatrixMultiplication(matrixA, matrixB);
-            MatrixMultiplication(matrixB, matrixA);
-
-            Console.ReadKey();
-        }
-
-        
     }
 }
