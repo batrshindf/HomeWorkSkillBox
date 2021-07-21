@@ -42,7 +42,7 @@ namespace HomeWork4._3
         }
 
         /// <summary>
-        /// Перемножение матриц
+        ///     Перемножение матриц
         /// </summary>
         /// <param name="row">Ширина первой матрицы</param>
         /// <param name="col">Высота первой матрицы</param>
@@ -62,7 +62,7 @@ namespace HomeWork4._3
             Console.WriteLine("\n\nВторая матрица:");
             PrintMatrix(row2, col2, matrix2);
 
-            if (matrix.GetLength(0) != matrix2.GetLength(1))
+            if (matrix.GetLength(1) != matrix2.GetLength(0))
             {
                 Console.WriteLine("\n\n\nПеремножение матриц невозможно. Несоблюдены правила перемножения " +
                                   "матриц (кол-во колнок матрицы А неравно кол-ву строк матрицы В).");
@@ -84,6 +84,7 @@ namespace HomeWork4._3
                         }
                     }
                 }
+
                 Console.WriteLine("\n\nРезультат:");
                 PrintMatrix(matrix.GetLength(0), matrix2.GetLength(1), matrix3);
                 Console.ReadKey();
@@ -92,7 +93,7 @@ namespace HomeWork4._3
 
 
         /// <summary>
-        /// Выичтание матриц
+        ///     Выичтание матриц
         /// </summary>
         /// <param name="row">Выоста матриц</param>
         /// <param name="col">Ширина матриц</param>
@@ -101,7 +102,8 @@ namespace HomeWork4._3
         /// <param name="matrix">Основная матрица (Первая матрица, из которой вычитают)</param>
         /// <param name="matrix2">Вторая матрица (Которую вычитают)</param>
         /// <param name="random">Псевдо-случайное число</param>
-        private static void MatrixDifference(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2, Random random)
+        private static void MatrixDifference(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2,
+            Random random)
         {
             Console.Clear();
 
@@ -145,7 +147,8 @@ namespace HomeWork4._3
         /// <param name="col2">Высота второй матрицы</param>
         /// <param name="matrix">Основная матрица (Первая матрица)</param>
         /// <param name="matrix2">Вторая матрица</param>
-        private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2, Random random)
+        private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2,
+            Random random)
         {
             Console.Clear();
 
@@ -156,7 +159,7 @@ namespace HomeWork4._3
 
             Console.WriteLine("\n\nВторая матрица:");
             PrintMatrix(row2, col2, matrix2);
-           
+
             if (row != row2 || col != col2)
             {
                 Console.WriteLine("\n\n\nСложение матриц невозможно. Несоблюдены правила сложения " +
@@ -221,7 +224,7 @@ namespace HomeWork4._3
             {
                 for (int j = 0; j < col; j++)
                 {
-                    Console.Write($"{matrix[i, j], 5} ");
+                    Console.Write($"{matrix[i, j],5} ");
                 }
 
                 Console.WriteLine();
