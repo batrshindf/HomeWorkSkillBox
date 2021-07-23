@@ -4,6 +4,8 @@ namespace HomeWork5._1
 {
     internal class Program
     {
+        private static Random random = new Random();
+     
         /// <summary>
         ///     Создание новой матрицы с параметрами (ширина и высота мтрицы), вводимые пользователем
         /// </summary>
@@ -103,8 +105,6 @@ namespace HomeWork5._1
 
         private static void Main(string[] args)
         {
-            Random random = new Random();
-
             Console.WriteLine("Задайте параметры для матрицы А: ");
             int[,] matrixA = GetNewMatrix();
             Console.WriteLine("\nЗадайте параметры для матрицы В: ");
