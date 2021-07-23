@@ -4,7 +4,7 @@ namespace HomeWork5._1
 {
     internal class Program
     {
-        private static Random random = new Random();
+        private readonly static Random random = new Random();
      
         /// <summary>
         ///     Создание новой матрицы с параметрами (ширина и высота мтрицы), вводимые пользователем
@@ -278,8 +278,6 @@ namespace HomeWork5._1
         /// <param name="matrixB">Исходная вторая матрица (матрица на которую умножают)</param>
         private static void MatrixMultiplication(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
-
             Console.Clear();
             Console.WriteLine("\n\nПеремножение матриц!");
 

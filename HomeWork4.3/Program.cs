@@ -34,8 +34,8 @@ namespace HomeWork4._3
             FillMatrix(row2, col2, matrix2, random);
 
             MultiplyingTheMatrixByNumber(row, col, matrix);
-            MatrixAddition(row, col, row2, col2, matrix, matrix2, random);
-            MatrixDifference(row, col, row2, col2, matrix, matrix2, random);
+            MatrixAddition(row, col, row2, col2, matrix, matrix2);
+            MatrixDifference(row, col, row2, col2, matrix, matrix2);
             MatrixMultiplication(row, col, row2, col2, matrix, matrix2);
 
             Console.ReadKey();
@@ -102,8 +102,7 @@ namespace HomeWork4._3
         /// <param name="matrix">Основная матрица (Первая матрица, из которой вычитают)</param>
         /// <param name="matrix2">Вторая матрица (Которую вычитают)</param>
         /// <param name="random">Псевдо-случайное число</param>
-        private static void MatrixDifference(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2,
-            Random random)
+        private static void MatrixDifference(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2)
         {
             Console.Clear();
 
@@ -147,8 +146,7 @@ namespace HomeWork4._3
         /// <param name="col2">Высота второй матрицы</param>
         /// <param name="matrix">Основная матрица (Первая матрица)</param>
         /// <param name="matrix2">Вторая матрица</param>
-        private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2,
-            Random random)
+        private static void MatrixAddition(int row, int col, int row2, int col2, int[,] matrix, int[,] matrix2)
         {
             Console.Clear();
 
