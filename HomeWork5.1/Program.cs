@@ -38,35 +38,15 @@ namespace HomeWork5._1
         }
 
         /// <summary>
-        ///     Получения количества строк в матрице (Высота матрицы)
-        /// </summary>
-        /// <param name="matrix">Исходная матрица</param>
-        /// <returns>Количество строк в матрице (Выоста матрицы)</returns>
-        private static int GetMatrixRow(int[,] matrix)
-        {
-            return matrix.GetLength(0);
-        }
-
-        /// <summary>
-        ///     Получения количества колонок в матрице (Ширина матрицы)
-        /// </summary>
-        /// <param name="matrix">Исходная матрица</param>
-        /// <returns>Количество колонок в матрице (Ширина матрицы)</returns>
-        private static int GetMatrixCol(int[,] matrix)
-        {
-            return matrix.GetLength(1);
-        }
-
-        /// <summary>
         ///     Автоматическое заполнение матрицы
         /// </summary>
         /// <param name="matrix">Заполняемая матрица</param>
         /// <param name="random">Псевдо-случайное число</param>
         private static void FillMatrix(int[,] matrix, Random random)
         {
-            for (int i = 0; i < GetMatrixRow(matrix); i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GetMatrixCol(matrix); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     matrix[i, j] = random.Next(-10, 11);
                 }
@@ -79,9 +59,9 @@ namespace HomeWork5._1
         /// <param name="matrix">Заполняемая матрица</param>
         private static void FillMatrix(int[,] matrix)
         {
-            for (int i = 0; i < GetMatrixRow(matrix); i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GetMatrixCol(matrix); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     Console.WriteLine($"\nВведите данные матрицы с координатами [{i + 1},{j + 1}]: ");
                     matrix[i, j] = int.Parse(Console.ReadLine());
@@ -96,9 +76,9 @@ namespace HomeWork5._1
         private static void PrintMatrix(int[,] matrix)
         {
             Console.WriteLine();
-            for (int i = 0; i < GetMatrixRow(matrix); i++)
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GetMatrixCol(matrix); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     Console.Write($"{matrix[i, j],4} ");
                 }
@@ -153,8 +133,6 @@ namespace HomeWork5._1
             MatrixDifference(matrixB, matrixA);
             MatrixMultiplication(matrixA, matrixB);
             MatrixMultiplication(matrixB, matrixA);
-
-            Console.ReadKey();
         }
 
         #region Методы вычесления матриц
@@ -170,23 +148,35 @@ namespace HomeWork5._1
             Console.Write("\nВведите число на которое нужно умножить матрицу: ");
 
             var multipliByNumber = int.Parse(Console.ReadLine());
-            var matrixC = new int[GetMatrixRow(matrix), GetMatrixCol(matrix)];
 
             Console.WriteLine("\nИсходная матрица:");
             PrintMatrix(matrix);
 
-            for (int i = 0; i < GetMatrixRow(matrix); i++)
+            Console.WriteLine($"\n\nРезультат умножения исходной матрицы на число {multipliByNumber}: ");
+            PrintMatrix(GetMultiplyingTheMatrixByNumber(matrix, multipliByNumber));
+
+            Console.ReadKey();
+        }
+
+        /// <summary>
+        ///     Вычисление умножения матрицы на число
+        /// </summary>
+        /// <param name="matrix">Матрица которую нужно умножить</param>
+        /// <param name="multipliByNumber">Число на которую умножается матрица</param>
+        /// <returns>Результат вычесления умножения матрицы на число</returns>
+        private static int[,] GetMultiplyingTheMatrixByNumber(int[,] matrix, int multipliByNumber)
+        {
+            var matrixC = new int[matrix.GetLength(0), matrix.GetLength(1)];
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < GetMatrixCol(matrix); j++)
+                for (int j = 0; j < matrix.GetLength(1); j++)
                 {
                     matrixC[i, j] = matrix[i, j] * multipliByNumber;
                 }
             }
 
-            Console.WriteLine($"\n\nРезультат умножения исходной матрицы на число {multipliByNumber}: ");
-            PrintMatrix(matrixC);
-
-            Console.ReadKey();
+            return matrixC;
         }
 
         /// <summary>
@@ -196,24 +186,14 @@ namespace HomeWork5._1
         /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
         private static void MatrixAddition(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[GetMatrixRow(matrixA), GetMatrixCol(matrixA)];
-
             Console.Clear();
             Console.WriteLine("\nСложение матриц!");
             SourceMatrices(matrixA, matrixB);
 
-            if (GetMatrixRow(matrixA) == GetMatrixRow(matrixB) && GetMatrixCol(matrixA) == GetMatrixCol(matrixB))
+            if (matrixA.GetLength(0) == matrixB.GetLength(0) && matrixA.GetLength(1) == matrixB.GetLength(1))
             {
-                for (int i = 0; i < GetMatrixRow(matrixA); i++)
-                {
-                    for (int j = 0; j < GetMatrixCol(matrixA); j++)
-                    {
-                        matrixC[i, j] = matrixA[i, j] + matrixB[i, j];
-                    }
-                }
-
                 Console.WriteLine("\nРезультат сложения матриц:");
-                PrintMatrix(matrixC);
+                PrintMatrix(GetMatrixAddition(matrixA, matrixB));
             }
             else
             {
@@ -225,30 +205,41 @@ namespace HomeWork5._1
         }
 
         /// <summary>
+        ///     Вычисление Сложения матриц
+        /// </summary>
+        /// <param name="matrixA">Исходная матрица А (Первая матрица)</param>
+        /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
+        /// <returns>Результат вычисления сложения матриц (Матрица А + Матрица В)</returns>
+        private static int[,] GetMatrixAddition(int[,] matrixA, int[,] matrixB)
+        {
+            var matrixC = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+
+            for (int i = 0; i < matrixA.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrixA.GetLength(1); j++)
+                {
+                    matrixC[i, j] = matrixA[i, j] + matrixB[i, j];
+                }
+            }
+
+            return matrixC;
+        }
+
+        /// <summary>
         ///     Вычитание матриц
         /// </summary>
         /// <param name="matrixA">Исходная матрица А (Первая матрица)</param>
         /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
         private static void MatrixDifference(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[GetMatrixRow(matrixA), GetMatrixCol(matrixA)];
-
             Console.Clear();
             Console.WriteLine("\nВычитание матриц!");
             SourceMatrices(matrixA, matrixB);
 
-            if (GetMatrixRow(matrixA) == GetMatrixRow(matrixB) && GetMatrixCol(matrixA) == GetMatrixCol(matrixB))
+            if (matrixA.GetLength(0) == matrixB.GetLength(0) && matrixA.GetLength(1) == matrixB.GetLength(1))
             {
-                for (int i = 0; i < GetMatrixRow(matrixA); i++)
-                {
-                    for (int j = 0; j < GetMatrixCol(matrixA); j++)
-                    {
-                        matrixC[i, j] = matrixA[i, j] - matrixB[i, j];
-                    }
-                }
-
                 Console.WriteLine("\nРезультат вычитания матриц:");
-                PrintMatrix(matrixC);
+                PrintMatrix(GetMatrixDifference(matrixA, matrixB));
             }
             else
             {
@@ -260,36 +251,44 @@ namespace HomeWork5._1
         }
 
         /// <summary>
+        ///     Вычисления Вычитания матриц
+        /// </summary>
+        /// <param name="matrixA">Исходная матрица А (Первая матрица)</param>
+        /// <param name="matrixB">Исходная матрица В (Вторая матрица)</param>
+        /// <returns>Результат вычисления вычитания матриц (Матрица А - Матрица В)</returns>
+        private static int[,] GetMatrixDifference(int[,] matrixA, int[,] matrixB)
+        {
+            var matrixC = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+
+            for (int i = 0; i < matrixA.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrixA.GetLength(1); j++)
+                {
+                    matrixC[i, j] = matrixA[i, j] - matrixB[i, j];
+                }
+            }
+
+            return matrixC;
+        }
+
+        /// <summary>
         ///     Умножение матриц
         /// </summary>
         /// <param name="matrixA">Исходная первая матрица (матрица которую умножают)</param>
         /// <param name="matrixB">Исходная вторая матрица (матрица на которую умножают)</param>
         private static void MatrixMultiplication(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[GetMatrixRow(matrixA), GetMatrixCol(matrixB)];
+            var matrixC = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
 
             Console.Clear();
             Console.WriteLine("\n\nПеремножение матриц!");
 
             SourceMatrices(matrixA, matrixB);
 
-            if (GetMatrixCol(matrixA) == GetMatrixRow(matrixB))
+            if (matrixA.GetLength(1) == matrixB.GetLength(0))
             {
-                for (int i = 0; i < GetMatrixRow(matrixA); i++)
-                {
-                    for (int j = 0; j < GetMatrixCol(matrixB); j++)
-                    {
-                        matrixC[i, j] = 0;
-
-                        for (int k = 0; k < GetMatrixCol(matrixA); k++)
-                        {
-                            matrixC[i, j] += matrixA[i, k] * matrixB[k, j];
-                        }
-                    }
-                }
-
                 Console.WriteLine("\n\nРезультат:");
-                PrintMatrix(matrixC);
+                PrintMatrix(GetMatrixMultiplication(matrixA, matrixB));
             }
             else
             {
@@ -298,6 +297,32 @@ namespace HomeWork5._1
             }
 
             Console.ReadKey();
+        }
+
+        /// <summary>
+        ///     Вычисление перемножения матриц
+        /// </summary>
+        /// <param name="matrixA">Исходная первая матрица (матрица которую умножают)</param>
+        /// <param name="matrixB">Исходная вторая матрица (матрица на которую умножают)</param>
+        /// <returns>Результат вычислений</returns>
+        private static int[,] GetMatrixMultiplication(int[,] matrixA, int[,] matrixB)
+        {
+            var matrixC = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
+
+            for (int i = 0; i < matrixA.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrixB.GetLength(1); j++)
+                {
+                    matrixC[i, j] = 0;
+
+                    for (int k = 0; k < matrixA.GetLength(1); k++)
+                    {
+                        matrixC[i, j] += matrixA[i, k] * matrixB[k, j];
+                    }
+                }
+            }
+
+            return matrixC;
         }
 
         #endregion
