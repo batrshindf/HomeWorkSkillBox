@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork5._3
 {
-    class Program
+    internal class Program
     {
         /// <summary>
-        /// Ввод строки пользователем
+        ///     Ввод строки пользователем
         /// </summary>
         /// <returns>Введённая строка</returns>
         private static string InputString()
@@ -19,7 +15,7 @@ namespace HomeWork5._3
         }
 
         /// <summary>
-        /// Нахождение и удаление одинаковых символов в слове
+        ///     Нахождение и удаление одинаковых символов в слове
         /// </summary>
         /// <param name="inputString">Строка, введённая пользователем</param>
         /// <returns>Отредактированная строка</returns>
@@ -29,33 +25,26 @@ namespace HomeWork5._3
             inputString.ToLower();
 
             for (int i = 0; i < inputString.Length; i++)
-            {
                 if (i != inputString.Length - 1)
                 {
-                    if (inputString[i] != inputString[i + 1])
-                    {
-                        outputString += inputString[i];
-                    }
+                    if (inputString[i] != inputString[i + 1]) outputString += inputString[i];
                 }
                 else
                 {
                     outputString += inputString[i];
                 }
-            }
 
             return outputString;
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var inputString = InputString();
             var outputString = GetRemovingDuplicateCharacters(inputString);
-            
+
             Console.WriteLine($"\n{inputString} >>>> {outputString}");
 
             Console.ReadKey();
         }
-
-       
     }
 }
