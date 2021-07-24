@@ -8,16 +8,21 @@ namespace HomeWork5._3
 {
     class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Ввод строки пользователем
+        /// </summary>
+        /// <returns>Введённая строка</returns>
+        private static string InputString()
         {
-            var inputString = InputString();
-            var outputString = GetRemovingDuplicateCharacters(inputString);
-            
-            Console.WriteLine($"\n{inputString} >>>> {outputString}");
-
-            Console.ReadKey();
+            Console.WriteLine("Введите строку с текстом:");
+            return Console.ReadLine();
         }
 
+        /// <summary>
+        /// Нахождение и удаление одинаковых символов в слове
+        /// </summary>
+        /// <param name="inputString">Строка, введённая пользователем</param>
+        /// <returns>Отредактированная строка</returns>
         private static string GetRemovingDuplicateCharacters(string inputString)
         {
             string outputString = "";
@@ -41,10 +46,16 @@ namespace HomeWork5._3
             return outputString;
         }
 
-        private static string InputString()
+        static void Main(string[] args)
         {
-            Console.WriteLine("Введите строку с текстом:");
-            return Console.ReadLine();
+            var inputString = InputString();
+            var outputString = GetRemovingDuplicateCharacters(inputString);
+            
+            Console.WriteLine($"\n{inputString} >>>> {outputString}");
+
+            Console.ReadKey();
         }
+
+       
     }
 }
