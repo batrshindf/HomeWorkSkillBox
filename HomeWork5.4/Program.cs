@@ -36,7 +36,7 @@ namespace HomeWork5._4
         /// <returns>True или false</returns>
         private static bool GetCheckArithmeticProgression(double[] inputNumericalSeries)
         {
-            var result = true;
+            bool result;
             double d = inputNumericalSeries[1] - inputNumericalSeries[0];
             var An = inputNumericalSeries[0] + (inputNumericalSeries.Length - 1) * d;
             if (An == inputNumericalSeries[inputNumericalSeries.Length - 1])
@@ -54,7 +54,7 @@ namespace HomeWork5._4
         /// <returns>True или false</returns>
         private static bool GetCheckGeometricProgression(double[] inputNumericalSeries)
         {
-            var result = true;
+            bool result;
             double q = inputNumericalSeries[1] / inputNumericalSeries[0];
             var Bn = inputNumericalSeries[0] * Math.Pow(q, inputNumericalSeries.Length - 1);
             Console.WriteLine(inputNumericalSeries.Length);
@@ -72,7 +72,7 @@ namespace HomeWork5._4
         /// <returns>Результат в виде текста</returns>
         private static string GetCheckingForProgression(double[] inputNumericalSeries)
         {
-            var progression = true;
+            bool progression;
             var result = "";
 
             if (progression = GetCheckArithmeticProgression(inputNumericalSeries))
