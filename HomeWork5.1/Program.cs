@@ -46,9 +46,12 @@ namespace HomeWork5._1
         /// <param name="random">Псевдо-случайное число</param>
         private static void FillMatrix(int[,] matrix, Random random)
         {
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            var row = matrix.GetLength(0);
+            var col = matrix.GetLength(1);
+
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     matrix[i, j] = random.Next(-10, 11);
                 }
@@ -61,9 +64,12 @@ namespace HomeWork5._1
         /// <param name="matrix">Заполняемая матрица</param>
         private static void FillMatrix(int[,] matrix)
         {
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            var row = matrix.GetLength(0);
+            var col = matrix.GetLength(1);
+
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     Console.WriteLine($"\nВведите данные матрицы с координатами [{i + 1},{j + 1}]: ");
                     matrix[i, j] = int.Parse(Console.ReadLine());
@@ -77,10 +83,13 @@ namespace HomeWork5._1
         /// <param name="matrix">Выводимая матрица</param>
         private static void PrintMatrix(int[,] matrix)
         {
+            var row = matrix.GetLength(0);
+            var col = matrix.GetLength(1);
+
             Console.WriteLine();
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     Console.Write($"{matrix[i, j],4} ");
                 }
@@ -100,39 +109,6 @@ namespace HomeWork5._1
             PrintMatrix(matrixA);
             Console.WriteLine("\nИсходная матрица В: ");
             PrintMatrix(matrixB);
-        }
-
-
-        private static void Main(string[] args)
-        {
-            Console.WriteLine("Задайте параметры для матрицы А: ");
-            int[,] matrixA = GetNewMatrix();
-            Console.WriteLine("\nЗадайте параметры для матрицы В: ");
-            int[,] matrixB = GetNewMatrix();
-
-            Console.Clear();
-            Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
-            int q = int.Parse(Console.ReadLine());
-            if (q == 1)
-            {
-                Console.WriteLine("Введите данные матрицы А (Построчно): ");
-                FillMatrix(matrixA);
-                Console.WriteLine("\nВведите данные матрицы B (Построчно): ");
-                FillMatrix(matrixB);
-            }
-            else
-            {
-                FillMatrix(matrixA, random);
-                FillMatrix(matrixB, random);
-            }
-
-            MultiplyingTheMatrixByNumber(matrixA);
-            MultiplyingTheMatrixByNumber(matrixB);
-            MatrixAddition(matrixA, matrixB);
-            MatrixDifference(matrixA, matrixB);
-            MatrixDifference(matrixB, matrixA);
-            MatrixMultiplication(matrixA, matrixB);
-            MatrixMultiplication(matrixB, matrixA);
         }
 
         #region Методы вычесления матриц
@@ -166,11 +142,13 @@ namespace HomeWork5._1
         /// <returns>Результат вычесления умножения матрицы на число</returns>
         private static int[,] GetMultiplyingTheMatrixByNumber(int[,] matrix, int multipliByNumber)
         {
-            var matrixC = new int[matrix.GetLength(0), matrix.GetLength(1)];
+            var row = matrix.GetLength(0);
+            var col = matrix.GetLength(1);
+            var matrixC = new int[row, col];
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     matrixC[i, j] = matrix[i, j] * multipliByNumber;
                 }
@@ -212,11 +190,13 @@ namespace HomeWork5._1
         /// <returns>Результат вычисления сложения матриц (Матрица А + Матрица В)</returns>
         private static int[,] GetMatrixAddition(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+            var row = matrixA.GetLength(0);
+            var col = matrixA.GetLength(1);
+            var matrixC = new int[row, col];
 
-            for (int i = 0; i < matrixA.GetLength(0); i++)
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrixA.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     matrixC[i, j] = matrixA[i, j] + matrixB[i, j];
                 }
@@ -258,11 +238,13 @@ namespace HomeWork5._1
         /// <returns>Результат вычисления вычитания матриц (Матрица А - Матрица В)</returns>
         private static int[,] GetMatrixDifference(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[matrixA.GetLength(0), matrixA.GetLength(1)];
+            var row = matrixA.GetLength(0);
+            var col = matrixA.GetLength(1);
+            var matrixC = new int[row, col];
 
-            for (int i = 0; i < matrixA.GetLength(0); i++)
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < matrixA.GetLength(1); j++)
+                for (int j = 0; j < col; j++)
                 {
                     matrixC[i, j] = matrixA[i, j] - matrixB[i, j];
                 }
@@ -305,15 +287,18 @@ namespace HomeWork5._1
         /// <returns>Результат вычислений</returns>
         private static int[,] GetMatrixMultiplication(int[,] matrixA, int[,] matrixB)
         {
-            var matrixC = new int[matrixA.GetLength(0), matrixB.GetLength(1)];
+            var rowAlLength = matrixA.GetLength(0);
+            var colALength = matrixA.GetLength(1);
+            var colBLength = matrixB.GetLength(1);
+            var matrixC = new int[rowAlLength, colBLength];
 
-            for (int i = 0; i < matrixA.GetLength(0); i++)
+            for (int i = 0; i < rowAlLength; i++)
             {
-                for (int j = 0; j < matrixB.GetLength(1); j++)
+                for (int j = 0; j < colBLength; j++)
                 {
                     matrixC[i, j] = 0;
 
-                    for (int k = 0; k < matrixA.GetLength(1); k++)
+                    for (int k = 0; k < colALength; k++)
                     {
                         matrixC[i, j] += matrixA[i, k] * matrixB[k, j];
                     }
@@ -324,5 +309,37 @@ namespace HomeWork5._1
         }
 
         #endregion
+
+        private static void Main(string[] args)
+        {
+            Console.WriteLine("Задайте параметры для матрицы А: ");
+            int[,] matrixA = GetNewMatrix();
+            Console.WriteLine("\nЗадайте параметры для матрицы В: ");
+            int[,] matrixB = GetNewMatrix();
+
+            Console.Clear();
+            Console.WriteLine("Хотите заполнить матрицу? (Да(1)/Нет(0)): ");
+            int q = int.Parse(Console.ReadLine());
+            if (q == 1)
+            {
+                Console.WriteLine("Введите данные матрицы А (Построчно): ");
+                FillMatrix(matrixA);
+                Console.WriteLine("\nВведите данные матрицы B (Построчно): ");
+                FillMatrix(matrixB);
+            }
+            else
+            {
+                FillMatrix(matrixA, random);
+                FillMatrix(matrixB, random);
+            }
+
+            MultiplyingTheMatrixByNumber(matrixA);
+            MultiplyingTheMatrixByNumber(matrixB);
+            MatrixAddition(matrixA, matrixB);
+            MatrixDifference(matrixA, matrixB);
+            MatrixDifference(matrixB, matrixA);
+            MatrixMultiplication(matrixA, matrixB);
+            MatrixMultiplication(matrixB, matrixA);
+        }
     }
 }
