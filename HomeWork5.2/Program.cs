@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork5._2
 {
-    class Program
+    internal class Program
     {
         /// <summary>
-        /// Ввод строки пользователем
+        ///     Ввод строки пользователем
         /// </summary>
         /// <returns>Введённая строка</returns>
         private static string InputString()
@@ -17,20 +13,22 @@ namespace HomeWork5._2
             Console.WriteLine("Введите строку с текстом:");
             return Console.ReadLine();
         }
+
         /// <summary>
-        /// Разбивка строки на отдельные слова
+        ///     Разбивка строки на отдельные слова
         /// </summary>
         /// <param name="inputString">Строка, введённая пользователем</param>
         /// <returns>Массив типа string заполненный отдельными словами</returns>
         private static string[] SeparatorStrings(string inputString)
         {
-            char[] delimiterChars = { ' ', ',', '.', ':', ';', '(', ')', '\t', '\n' };
+            char[] delimiterChars = {' ', ',', '.', ':', ';', '(', ')', '\t', '\n'};
 
             string[] workingStrings = inputString.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
             return workingStrings;
         }
+
         /// <summary>
-        /// Вывод слова или коллекции слов
+        ///     Вывод слова или коллекции слов
         /// </summary>
         /// <param name="workingStrings">Массив строк после разбивки</param>
         private static void OutputWorkingStrings(string[] workingStrings)
@@ -40,8 +38,9 @@ namespace HomeWork5._2
                 Console.WriteLine($"\n{word}");
             }
         }
+
         /// <summary>
-        /// Нахождение слова с минимальной длинной
+        ///     Нахождение слова с минимальной длинной
         /// </summary>
         /// <param name="inputStrings">Строка, введённая пользователем</param>
         /// <returns>Слово с минимальной длинной</returns>
@@ -62,8 +61,9 @@ namespace HomeWork5._2
 
             return workingStrings[position];
         }
+
         /// <summary>
-        /// Находение слова/слов с максимвльной длинной
+        ///     Находение слова/слов с максимвльной длинной
         /// </summary>
         /// <param name="inputString">Строка, введённая пользователем</param>
         /// <returns>Слово/коллекция слов</returns>
@@ -93,17 +93,16 @@ namespace HomeWork5._2
 
             return returnWords;
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             var inputString = InputString();
 
             Console.WriteLine($"\nСлово с минимальной длинной:\n\n{WordMinLength(inputString)}");
-            Console.WriteLine($"\nСлово/слова с максимальной длинной:");
+            Console.WriteLine("\nСлово/слова с максимальной длинной:");
             OutputWorkingStrings(WordMaxLength(inputString));
 
             Console.ReadKey();
         }
-
-        
     }
 }
