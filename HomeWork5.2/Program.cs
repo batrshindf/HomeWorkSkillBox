@@ -8,7 +8,7 @@ namespace HomeWork5._2
         ///     Ввод строки пользователем
         /// </summary>
         /// <returns>Введённая строка</returns>
-        private static string InputString()
+        private static string GetInputString()
         {
             Console.WriteLine("Введите строку с текстом:");
             return Console.ReadLine();
@@ -19,7 +19,7 @@ namespace HomeWork5._2
         /// </summary>
         /// <param name="inputString">Строка, введённая пользователем</param>
         /// <returns>Массив типа string заполненный отдельными словами</returns>
-        private static string[] SeparatorStrings(string inputString)
+        private static string[] GetSeparatorStrings(string inputString)
         {
             char[] delimiterChars = {' ', ',', '.', ':', ';', '(', ')', '\t', '\n'};
 
@@ -44,9 +44,9 @@ namespace HomeWork5._2
         /// </summary>
         /// <param name="inputStrings">Строка, введённая пользователем</param>
         /// <returns>Слово с минимальной длинной</returns>
-        private static string WordMinLength(string inputStrings)
+        private static string GetWordMinLength(string inputStrings)
         {
-            var workingStrings = SeparatorStrings(inputStrings);
+            var workingStrings = GetSeparatorStrings(inputStrings);
             var min = workingStrings[0].Length;
             var position = 0;
 
@@ -67,9 +67,9 @@ namespace HomeWork5._2
         /// </summary>
         /// <param name="inputString">Строка, введённая пользователем</param>
         /// <returns>Слово/коллекция слов</returns>
-        private static string[] WordMaxLength(string inputString)
+        private static string[] GetWordMaxLength(string inputString)
         {
-            var workingStrings = SeparatorStrings(inputString);
+            var workingStrings = GetSeparatorStrings(inputString);
             var max = workingStrings[0].Length;
             string[] returnWords = new string[workingStrings.Length];
             var countReturnWords = 0;
@@ -96,11 +96,11 @@ namespace HomeWork5._2
 
         private static void Main(string[] args)
         {
-            var inputString = InputString();
+            var inputString = GetInputString();
 
-            Console.WriteLine($"\nСлово с минимальной длинной:\n\n{WordMinLength(inputString)}");
+            Console.WriteLine($"\nСлово с минимальной длинной:\n\n{GetWordMinLength(inputString)}");
             Console.WriteLine("\nСлово/слова с максимальной длинной:");
-            OutputWorkingStrings(WordMaxLength(inputString));
+            OutputWorkingStrings(GetWordMaxLength(inputString));
 
             Console.ReadKey();
         }
