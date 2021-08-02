@@ -11,7 +11,9 @@ namespace HomeWork5._3
         private static string InputString()
         {
             Console.WriteLine("Введите строку с текстом:");
-            return Console.ReadLine();
+            string inputText = Console.ReadLine();
+            inputText = inputText.ToLower();
+            return inputText;
         }
 
         /// <summary>
