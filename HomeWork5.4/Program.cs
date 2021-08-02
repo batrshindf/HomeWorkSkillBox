@@ -11,13 +11,35 @@ namespace HomeWork5._4
         /// <returns>Массив с последоватеьностью чисел</returns>
         private static double[] GetInputNumericalSeries()
         {
-            Console.WriteLine("Введите полседовательность чисел через пробел: ");
+            Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х): ");
             string inputConsoleNumericalSeries = Console.ReadLine();
             double[] inputNumericalSeries = inputConsoleNumericalSeries
                 .Split(new[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => double.Parse(x))
                 .ToArray();
+            inputNumericalSeries = GetCheckInput(inputNumericalSeries);
+
             return inputNumericalSeries;
+        }
+
+        /// <summary>
+        /// Проверка ввода количества чисел для проверки на прогрессию (не менее 3-х чисел)
+        /// </summary>
+        /// <param name="inputNumSer">Вводимая последовательность чисел</param>
+        /// <returns>Проверенная последовательность чисел, от 3-х штук</returns>
+        private static double[] GetCheckInput(double[] inputNumSer)
+        {
+            while (inputNumSer.Length <= 2)
+            {
+                Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х): ");
+                string inputConsoleNumericalSeries = Console.ReadLine();
+                inputNumSer = inputConsoleNumericalSeries
+                    .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => double.Parse(x))
+                    .ToArray();
+            }
+            
+            return inputNumSer;
         }
 
         /// <summary>
@@ -34,15 +56,15 @@ namespace HomeWork5._4
         /// </summary>
         /// <param name="inputNumericalSeries">Массив чисел, который нужно проверить</param>
         /// <returns>True или false</returns>
-        private static bool GetCheckArithmeticProgression(double[] inputNumericalSeries)
+        private static int GetCheckArithmeticProgression(double[] inputNumericalSeries)
         {
-            bool result;
+            int result;
             double d = inputNumericalSeries[1] - inputNumericalSeries[0];
             var An = inputNumericalSeries[0] + (inputNumericalSeries.Length - 1) * d;
             if (An == inputNumericalSeries[inputNumericalSeries.Length - 1])
-                result = true;
+                result = 1;
             else
-                result = false;
+                result = 2;
 
             return result;
         }
@@ -52,16 +74,16 @@ namespace HomeWork5._4
         /// </summary>
         /// <param name="inputNumericalSeries">Массив чисел, который нужно проверить</param>
         /// <returns>True или false</returns>
-        private static bool GetCheckGeometricProgression(double[] inputNumericalSeries)
+        private static int GetCheckGeometricProgression(double[] inputNumericalSeries)
         {
-            bool result;
+            int result;
             double q = inputNumericalSeries[1] / inputNumericalSeries[0];
             var Bn = inputNumericalSeries[0] * Math.Pow(q, inputNumericalSeries.Length - 1);
             Console.WriteLine(inputNumericalSeries.Length);
             if (Bn == inputNumericalSeries[inputNumericalSeries.Length - 1])
-                result = true;
+                result = 1;
             else
-                result = false;
+                result = 2;
             return result;
         }
 
@@ -72,20 +94,26 @@ namespace HomeWork5._4
         /// <returns>Результат в виде текста</returns>
         private static string GetCheckingForProgression(double[] inputNumericalSeries)
         {
-            bool progression;
             var result = "";
 
-            if (progression = GetCheckArithmeticProgression(inputNumericalSeries))
+            if (1 == GetCheckArithmeticProgression(inputNumericalSeries))
             {
                 result += "Данная последовательность чисел является арифметической прогрессией.";
             }
             else
             {
-                if (progression = GetCheckGeometricProgression(inputNumericalSeries))
-                    result += "Данная последовательность чисел является геометрической прогрессией.";
+                if (1 == GetCheckGeometricProgression(inputNumericalSeries))
+                {
+                    if (inputNumericalSeries[inputNumericalSeries.Length - 1] == inputNumericalSeries[inputNumericalSeries.Length - 2])
+                        result += "Данная последовательность чисел не является ни геометрической, ни арифметической прогрессией.";
+                    else
+                        result += "Данная последовательность чисел является геометрической прогрессией.";
+                }
                 else
-                    result +=
-                        "Данная последовательность чисел не является ни геометрической, ни арифметической прогрессией.";
+                {
+                    result += "Данная последовательность чисел не является ни геометрической, ни арифметической прогрессией.";
+                }
+                    
             }
 
             return result;
