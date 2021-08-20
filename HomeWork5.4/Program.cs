@@ -11,28 +11,63 @@ namespace HomeWork5._4
         /// <returns>Массив с последоватеьностью чисел</returns>
         private static double[] GetInputNumericalSeries()
         {
-            Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х): ");
+            Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х и без букв): ");
             string inputConsoleNumericalSeries = Console.ReadLine();
+            inputConsoleNumericalSeries = GetCheckInputNum(inputConsoleNumericalSeries);
             double[] inputNumericalSeries = inputConsoleNumericalSeries
                 .Split(new[] {' ', ','}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => double.Parse(x))
                 .ToArray();
-            inputNumericalSeries = GetCheckInput(inputNumericalSeries);
+            inputNumericalSeries = GetCheckInputLength(inputNumericalSeries);
 
             return inputNumericalSeries;
         }
+
+        /// <summary>
+        /// Проверка ввода на наличие других символов кроме чисел
+        /// </summary>
+        /// <param name="inpuinputConsoleNumericalSeriestNumSer">Вводимая последовательность чисел</param>
+        /// <returns>Проверенная последовательность чисел</returns>
+        private static string GetCheckInputNum(string inpuinputConsoleNumericalSeriestNumSer)
+        {
+            var inputString = inpuinputConsoleNumericalSeriestNumSer;
+            var b = false;
+
+            while (b == false)
+            {
+                if (inputString.Length == 0)
+                {
+                    Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х и без букв): ");
+                    inputString = Console.ReadLine();
+                }
+                for (int i = 0; i < inputString.Length; i++)
+                {
+                    if (inputString[i] == ' ') continue;
+                    b = Char.IsDigit(inputString, i);
+                    if (b == false)
+                    {
+                        Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х и без букв): ");
+                        inputString = Console.ReadLine();
+                    }
+                }
+            }
+
+            return inputString;
+        }
+
 
         /// <summary>
         /// Проверка ввода количества чисел для проверки на прогрессию (не менее 3-х чисел)
         /// </summary>
         /// <param name="inputNumSer">Вводимая последовательность чисел</param>
         /// <returns>Проверенная последовательность чисел, от 3-х штук</returns>
-        private static double[] GetCheckInput(double[] inputNumSer)
+        private static double[] GetCheckInputLength(double[] inputNumSer)
         {
             while (inputNumSer.Length <= 2)
             {
-                Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х): ");
+                Console.WriteLine("Введите полседовательность чисел через пробел (не менее 3-х и без букв): ");
                 string inputConsoleNumericalSeries = Console.ReadLine();
+                inputConsoleNumericalSeries = GetCheckInputNum(inputConsoleNumericalSeries);
                 inputNumSer = inputConsoleNumericalSeries
                     .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => double.Parse(x))
