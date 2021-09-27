@@ -12,6 +12,7 @@ namespace HomeWork6
         private static readonly string inputPath = "Number.txt";
         private static readonly string outputPath = "OutputGroup.txt";
         private static readonly string compressed = "OutputGroup.zip";
+
         private static void Main(string[] args)
         {
             var inNumber = InputNumber();
@@ -117,7 +118,6 @@ namespace HomeWork6
             long inNumber = 0;
 
             var inputNumber = File.ReadAllText(inputPath);
-
             inputNumber = inputNumber.Trim();
 
             for (int i = 0; i < inputNumber.Length; i++)
@@ -129,23 +129,40 @@ namespace HomeWork6
                 }
             }
 
-            if (Regex.IsMatch(inputNumber, @"^[\p{N}]+$") == false)
+            if (Equals(inputNumber, ""))
             {
-                outText = "Введите в файл число в диапозоне: 1 <= N <= 1 000 000 000";
-                File.WriteAllText(outputPath, outText);
+                Error();
             }
             else
             {
-                inNumber = long.Parse(inputNumber);
-
-                if (inNumber < 1 || inNumber > 1_000_000_000)
+                if (Regex.IsMatch(inputNumber, @"^[\p{N}]+$") == false)
                 {
-                    outText = "Введите в файл число в диапозоне: 1 <= N <= 1 000 000 000";
-                    File.WriteAllText(outputPath, outText);
+                    Error();
+                }
+                else
+                {
+                    inNumber = long.Parse(inputNumber);
+
+                    if (inNumber < 1 || inNumber > 1_000_000_000)
+                    {
+                        Error();
+                    }
                 }
             }
 
             return inNumber;
+        }
+
+        /// <summary>
+        ///     Не соблюдение условия или пустой файл
+        /// </summary>
+        private static void Error()
+        {
+            outText = "Введите в файл число в диапозоне: 1 <= N <= 1 000 000 000";
+            File.WriteAllText(outputPath, outText);
+            Console.WriteLine(outText);
+            Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }
