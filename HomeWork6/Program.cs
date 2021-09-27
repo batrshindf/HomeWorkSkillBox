@@ -1,25 +1,33 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 
 namespace HomeWork6
 {
-    class Program
+    internal class Program
     {
-        static string outText = "Группа 1: 1";
-        static int countGroup = 1;
-        private static string inputPath = "Number.txt";
-        private static string outputPath = "OutputGroup.txt";
-        private static string compressed = "OutputGroup.zip";
-        static void Main(string[] args)
+        private static string outText = "Группа 1: 1";
+        private static int countGroup = 1;
+        private static readonly string inputPath = "Number.txt";
+        private static readonly string outputPath = "OutputGroup.txt";
+        private static readonly string compressed = "OutputGroup.zip";
+        private static void Main(string[] args)
         {
             var inNumber = InputNumber();
+
             SplitIntoGroup(inNumber);
             WritingToDisk(inNumber);
+            ArchivingFile();
 
+            Console.ReadKey();
+        }
 
+        /// <summary>
+        ///     Архивация полученного файла
+        /// </summary>
+        private static void ArchivingFile()
+        {
             Console.Write("Создать архив данного файла? (Да/Нет): ");
             var yesNo = Console.ReadLine();
             yesNo.ToLower();
@@ -32,19 +40,21 @@ namespace HomeWork6
                         using (GZipStream cs = new GZipStream(ts, CompressionMode.Compress)) //Поток архивации
                         {
                             ss.CopyTo(cs); //Копирование основного потока (файла) в другой (архивный)
-                            Console.Clear();
-                            Console.WriteLine($"Архивация файла {outputPath} завершина.\nРазмер файла до архивации: {ss.Length} байт;\nРазмер файла после архивации: {ts.Length} байт.");
                         }
                     }
                 }
 
+                Console.Clear();
+                Console.WriteLine(
+                    $"Архивация файла {outputPath} завершина.\nРазмер файла до архивации: {new FileInfo(outputPath).Length} байт;" +
+                    $"\nРазмер файла после архивации: {new FileInfo(compressed).Length} байт.");
             }
-
-
-
-            Console.ReadKey();
         }
 
+        /// <summary>
+        ///     Запись в файл чисел групп и/или количества групп.
+        /// </summary>
+        /// <param name="inNumber">Число N</param>
         private static void WritingToDisk(long inNumber)
         {
             File.WriteAllText(outputPath, "");
@@ -68,12 +78,13 @@ namespace HomeWork6
                     File.AppendAllText(outputPath, $"Количесвто групп чисел для N = {inNumber} равно {countGroup}.");
                 }
                 else
-                    File.AppendAllText(outputPath, $"\n\n\nКоличесвто групп чисел для N = {inNumber} равно {countGroup}.");
+                    File.AppendAllText(outputPath,
+                        $"\n\n\nКоличесвто групп чисел для N = {inNumber} равно {countGroup}.");
             }
         }
 
         /// <summary>
-        /// Разбивает числа по группам в диапазоне от 1 до N 
+        ///     Разбивает числа по группам в диапазоне от 1 до N
         /// </summary>
         /// <param name="inNumber"></param>
         private static void SplitIntoGroup(long inNumber)
@@ -98,7 +109,7 @@ namespace HomeWork6
         }
 
         /// <summary>
-        /// Чтение числа из файла с проверкой
+        ///     Чтение числа из файла с проверкой
         /// </summary>
         /// <returns>Число N из файла</returns>
         private static long InputNumber()
