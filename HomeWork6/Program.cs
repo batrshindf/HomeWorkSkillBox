@@ -15,13 +15,40 @@ namespace HomeWork6
 
         private static void Main(string[] args)
         {
-            var inNumber = InputNumber();
+            var inNumber = GetInputNumber();
 
-            SplitIntoGroup(inNumber);
-            WritingToDisk(inNumber);
+            Console.Write("Посчитать только количество групп? (Да/Нет): ");
+            var yesNo = Console.ReadLine();
+            yesNo.ToLower();
+
+            if (Equals(yesNo, "да"))
+            {
+                NumberOfGroups(inNumber);
+                OutNumberOfGroups(inNumber,true);
+            }
+            else
+            {
+                SplitIntoGroup(inNumber);
+                WritingToDisk(inNumber);
+            }
+                
             ArchivingFile();
 
             Console.ReadKey();
+        }
+
+        /// <summary>
+        /// Метод нахождения ТОЛЬКО количества групп
+        /// </summary>
+        /// <param name="inNumber">Число N из файла.</param>
+        private static void NumberOfGroups(long inNumber)
+        {
+            var n = 1;
+            while (n < inNumber)
+            {
+                n *= 2;
+                countGroup++;
+            }
         }
 
         /// <summary>
@@ -69,6 +96,17 @@ namespace HomeWork6
                 a = false;
             }
 
+            OutNumberOfGroups(inNumber, a);
+        }
+
+        /// <summary>
+        /// Вывод Количества групп.
+        /// </summary>
+        /// <param name="inNumber">Число N</param>
+        /// <param name="a">Условие на добавление строки в пустой файл или файл с данными</param>
+        private static void OutNumberOfGroups(long inNumber, bool a)
+        {
+            string yesNo;
             Console.WriteLine("Записать количество групп на диск? (Да/Нет): ");
             yesNo = Console.ReadLine();
             yesNo.ToLower();
@@ -76,7 +114,7 @@ namespace HomeWork6
             {
                 if (a)
                 {
-                    File.AppendAllText(outputPath, $"Количесвто групп чисел для N = {inNumber} равно {countGroup}.");
+                    File.WriteAllText(outputPath, $"Количесвто групп чисел для N = {inNumber} равно {countGroup}.");
                 }
                 else
                     File.AppendAllText(outputPath,
@@ -113,7 +151,7 @@ namespace HomeWork6
         ///     Чтение числа из файла с проверкой
         /// </summary>
         /// <returns>Число N из файла</returns>
-        private static long InputNumber()
+        private static long GetInputNumber()
         {
             long inNumber = 0;
 
