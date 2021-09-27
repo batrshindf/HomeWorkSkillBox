@@ -158,7 +158,8 @@ namespace HomeWork6
         /// </summary>
         private static void Error()
         {
-            outText = "Файл пустой или число не удовлетворяет условиям. Введите в файл число в диапозоне: 1 <= N <= 1 000 000 000";
+            outText =
+                "Файл пустой или число не удовлетворяет условиям. Введите в файл число в диапозоне: 1 <= N <= 1 000 000 000";
             File.WriteAllText(outputPath, outText);
             Console.WriteLine(outText);
             Console.ReadKey();
