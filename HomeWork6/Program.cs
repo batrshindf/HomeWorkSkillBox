@@ -9,30 +9,57 @@ namespace HomeWork6
     {
         private static string outText = "Группа 1: 1";
         private static int countGroup = 1;
-        private static readonly string inputPath = "Number.txt";
-        private static readonly string outputPath = "OutputGroup.txt";
-        private static readonly string compressed = "OutputGroup.zip";
+        private static string inputPath = "Number.txt";
+        private static string outputPath = "OutputGroup.txt";
+        private static string compressed = "OutputGroup.zip";
 
         private static void Main(string[] args)
         {
-            var inNumber = GetInputNumber();
 
-            Console.Write("Посчитать только количество групп? (Да/Нет): ");
-            var yesNo = Console.ReadLine();
-            yesNo.ToLower();
 
-            if (Equals(yesNo, "да"))
+            Console.WriteLine("Введите название файла с числом N и его расширение или весь путь к данному файлу:");
+
+            inputPath = Console.ReadLine();
+
+            var c = true;
+
+            var indexFile = 0;
+            var indexExtension = 0;
+            indexFile = inputPath.LastIndexOf('\\');
+            indexExtension = inputPath.LastIndexOf('.');
+            Console.WriteLine($"{indexFile}");
+            Console.WriteLine($"{indexExtension}");
+
+            foreach (var i in inputPath)
             {
-                NumberOfGroups(inNumber);
-                OutNumberOfGroups(inNumber,true);
+                if (i == ':') { c = false; }
             }
-            else
-            {
-                SplitIntoGroup(inNumber);
-                WritingToDisk(inNumber);
-            }
+
+
+
+
+            
+
+
+
+            //var inNumber = GetInputNumber();
+
+            //Console.Write("Посчитать только количество групп? (Да/Нет): ");
+            //var yesNo = Console.ReadLine();
+            //yesNo.ToLower();
+
+            //if (Equals(yesNo, "да"))
+            //{
+            //    NumberOfGroups(inNumber);
+            //    OutNumberOfGroups(inNumber,true);
+            //}
+            //else
+            //{
+            //    SplitIntoGroup(inNumber);
+            //    WritingToDisk(inNumber);
+            //}
                 
-            ArchivingFile();
+            //ArchivingFile();
 
             Console.ReadKey();
         }
